@@ -2,6 +2,8 @@ package it.polito.tdp.model;
 
 import java.util.*;
 
+import it.polito.tdp.libretto.db.EsameDAO;
+
 public class Model {
 	
 	private List <Esame> esami;
@@ -23,12 +25,15 @@ public class Model {
 	 * @param e
 	 */
 	public boolean addEsame(Esame e){
-		if(!esami.contains(e)){
+		/*if(!esami.contains(e)){
 			esami.add(e);
 			return true;
 		}
 		else
 			return false;
+		*/
+		EsameDAO dao = new EsameDAO();
+		return dao.create(e);
 	}
 	
 	/**
@@ -36,12 +41,15 @@ public class Model {
 	 * Se corretto, lo restituisce, altrimenti restituisce null.
 	 */
 	public Esame trovaEsame(String codice){
-		int pos = esami.indexOf(new Esame(codice, null, null));
+		/*int pos = esami.indexOf(new Esame(codice, null, null));
 		if (pos==-1)
 			return null;
 		else
 			return esami.get(pos);
-			
+		*/
+		EsameDAO dao = new EsameDAO();
+		Esame e = dao.find(codice);
+		return e;
 	}
 
 }
